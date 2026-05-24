@@ -1,6 +1,6 @@
-//  CogClock.ino
+//  CamClock.ino
  /* 
- * This file is part of the CogClock distribution (https://github.com/biocode3D/CamClock.git).
+ * This file is part of the CamClock distribution (https://github.com/biocode3D/CamClock.git).
  * Copyright (c) 2026 John C. Silvia
  * 
  * This program is free software: you can redistribute it and/or modify  
@@ -35,15 +35,12 @@ batteries as is.
 #include <WiFi.h>
 #include "driver/rtc_io.h"
 
+#include "custom.h"
 
 // Will be waking up from deep sleep repeatedly
 // and starting at the begining, so need to
 // flag the first time through the loop.
 RTC_DATA_ATTR bool firstTime = true;
-
-// optionally set network values here
-String ssid = "";
-String password = "";
 
 // persistent storage for network
 RTC_DATA_ATTR char sid[128];
@@ -53,10 +50,6 @@ RTC_DATA_ATTR char psk[128];
 int sidAddr = 128;
 int pskAddr = 256;
 
-/* Configuration of NTP */
-#define MY_NTP_SERVER "at.pool.ntp.org"
-#define MY_TZ "CST6CDT,M3.2.0,M11.1.0"
-
 // location for determining if there is usb connection
 #define USB_SERIAL_JTAG_FRAM_NUM_REG 0x60043024
 
@@ -65,11 +58,6 @@ time_t NTPnow;  // the seconds since Epoch (1970) - UTC
 tm tm = { 0 };
 DateTime now;
 int hour = 0;
-
-// servo control constants
-const int minPulseWidth = 500;       // Minimum servi pulse width in microseconds
-const int maxPulseWidth = 2500;      // Maximum servo pulse width in microseconds
-const int pulseTrainDuration = 100;  // number of pulses (100 = 2 sec)
 
 // IO pin definitions
 const gpio_num_t GPIOhourly = GPIO_NUM_0;     // wake up pin
