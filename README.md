@@ -1,6 +1,8 @@
 # CogClock
 Firmware for a battery powered clock with arbitrary hour placement and WiFi NTP synchronization.
 
+Edit custom.h for any changes needed. The timezone will almost certainly need to be changed. Look up your locat Posix timezone string.
+
 Program the clock using the Arduino software configured for the "Nologo ESP32C3 Super Mini" device. Search board manager for "esp32 by Espressif Systems" if the board  is not already available. Be sure the serial monitor is active and on start up the board will prompt for the network ssid and psk. It will then offer to change the table of angles for each hour. Pressing return with no input will leave the current value unchanged. It will then attempt to get the correct time from the internet. At any time the usb is connected, pressing the button will initiate this proceedure. When the usb is not connected, pressing the button will just reset the time from the internet. When it prompts for the ssid, entering '#' instead will give an interactive one-at-a-time hour angle adjustment. When satisfied, enter '#' again to save the new values.
 
 The ESP32-C3 Super Mini has very poor WiFi performance so I recommend soldering a 31.2 mm long wire to the side of the antenna component nearest the oscillator. It appears that the antenna part is often installed backwards, so the attenna is connected to ground and the signal is left open. The best signal is obtained by leaving that alone. Do'nt try to reverse or disconnect it, just add the wire.
